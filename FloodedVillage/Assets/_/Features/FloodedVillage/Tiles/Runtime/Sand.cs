@@ -1,29 +1,41 @@
-using UnityEngine;
 using Data.Runtime;
+using UnityEngine;
+
 
 namespace Tiles.Runtime
 {
-    public class Sand : MonoBehaviour, ICanBeHighlighted
+    public class Sand : MonoBehaviour, CanBeModified
     {
-     
+
         #region Publics
 
         #endregion
 
         #region Unity API
 
-        // Start is called before the first frame update
-        void Start()
-    		{
-			
-    		}
+        private void Start()
+        {
+            _spriteRenderer.enabled = true;
+            _isActive = true;
+            
+        }
 
-    		// Update is called once per frame
-    		void Update()
-    		{
-			
-    		}
+        private void OnMouseEnter()
+        {
+            ActivateHighlight();
+        }
 
+        private void OnMouseExit()
+        {
+            Debug.Log(_isActive);
+            DeactivateHighlight();
+        }
+
+        private void OnMouseDown()
+        {
+            ActivateOrDeactivateSpriteRenderer();
+            _updateMoves.Raise();
+        }
         #endregion
 
         #region Main methods
@@ -38,18 +50,25 @@ namespace Tiles.Runtime
             _highlight.SetActive(false);
         }
 
+        [ContextMenu("Activate Sprite Renderer")]
         public void ActivateOrDeactivateSpriteRenderer()
         {
-            if (_active == true)
+            if (_isActive == true)
             {
                 _spriteRenderer.enabled = false;
-                _active = false;
+                _isActive = false;
             }
-            if(_active == false)
+            else if(_isActive == false)
             {
                 _spriteRenderer.enabled = true;
-                _active = true;
+                _isActive = true;
             }
+ 
+        }
+
+        public bool IsTheTileEmpty()
+        {
+            return _isActive;
         }
 
         #endregion
@@ -61,7 +80,9 @@ namespace Tiles.Runtime
         #region Privates & Protected
         [SerializeField] private GameObject _highlight;
         [SerializeField] private SpriteRenderer _spriteRenderer;
-        private bool _active = true;
+        private bool _isActive = true;
+        [SerializeField] GameEvent _updateMoves;
+
         #endregion
     }
 

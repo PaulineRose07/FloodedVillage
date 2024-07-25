@@ -1,6 +1,8 @@
+using Data.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace LevelDesign.Runtime
@@ -48,7 +50,7 @@ namespace LevelDesign.Runtime
             string[] textContent = m_levelMapText.ToString().Split(',');
             for(int i = 0; i < textContent.Length; i++)
             {
-                Debug.Log(i);
+                //Debug.Log(i);
                 int intified = int.Parse(textContent[i]);
                 _levelDesign[i] = intified;
                 //Debug.Log($"index : {i} -- Value: {textContent[i]}");
@@ -67,8 +69,6 @@ namespace LevelDesign.Runtime
 
                 cell.name = $"BackGround cell {pos}";
             }
-
-           
         }
 
         private void ForegroundGenerator()
@@ -85,7 +85,7 @@ namespace LevelDesign.Runtime
                     m_cellObject = cell,
                     m_cellLocation = i,
                 };
-                _cellsList.Add(coordinates);
+                _cellsCoordinatesList.Add(coordinates);
             }
         }
 
@@ -97,7 +97,29 @@ namespace LevelDesign.Runtime
             return new Vector2Int(x, y);
 
         }
+
+        private void OnDrawGizmosSelected()
+        {
+            for (int i = 0; i < _gridDimensions.x * _gridDimensions.y; i++)
+            {
+                var pos = GetCellPosition(i);
+                Handles.Label(pos, i.ToString());
+            }
+        }
         #endregion
+
+        [ContextMenu("Find Water")]
+        private void FindWaterInCellCoordinates()
+        {
+            for(int i = 0; i < _cellsCoordinatesList.Count; i++)
+            {
+                if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<CanBeModified>(out CanBeModified modify))
+                {
+                    Debug.Log("Modified");
+                }
+            }
+        }
+
 
         #region Privates & Protected
         [Header("--- Grid Settings ---")]
@@ -106,7 +128,7 @@ namespace LevelDesign.Runtime
         
         [SerializeField] GameObject[] _cells;
         [SerializeField] GameObject _backgroundPrefab;
-        [SerializeField] List<CellCoordinates> _cellsList;
+        [SerializeField] List<CellCoordinates> _cellsCoordinatesList;
         [SerializeField] Transform _backgroundTransform;
         [SerializeField] Transform _foregroundTransform;
         private int _gridCellCount;

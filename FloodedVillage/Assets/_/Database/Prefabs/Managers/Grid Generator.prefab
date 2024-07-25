@@ -117,7 +117,8 @@ MonoBehaviour:
   - {fileID: 5294471177666142719, guid: c697e951e57196f4cb996a307366e509, type: 3}
   - {fileID: 7960654563811310804, guid: 06c6a05007a04c441add5abdfabd6fd5, type: 3}
   - {fileID: 7694063236398397498, guid: 5fcf613f9d928864fb64234eee6fc30a, type: 3}
-  _cellsList: []
+  _backgroundPrefab: {fileID: 3119048949214642774, guid: 73bfc3e33df7b124c8e0a7addc3cdfc4, type: 3}
+  _cellsCoordinatesList: []
   _backgroundTransform: {fileID: 7746061003181328320}
   _foregroundTransform: {fileID: 3499809109469945602}
   _levelDesign: 
