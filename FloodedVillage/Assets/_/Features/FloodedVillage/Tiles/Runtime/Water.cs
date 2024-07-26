@@ -8,7 +8,20 @@ namespace Tiles.Runtime
         #region Unity API
         private void Start()
         {
+            
+        }
+        #endregion
+
+        #region Main Methods
+
+        public void OnWaterInitialization()
+        {
             _onWaterInitialization.Raise();
+        }
+
+        public bool AmIWater()
+        {
+            return true;
         }
         #endregion
 

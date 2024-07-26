@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7381498154570909737}
   - component: {fileID: 799239312811066311}
   - component: {fileID: 5115742882197154362}
+  - component: {fileID: 3317020409900913524}
   m_Layer: 0
   m_Name: zombie
   m_TagString: Untagged
@@ -130,3 +131,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3317020409900913524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2736920359781190308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a074a9055a049d041b95baeaab483f40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 799239312811066311}
+  _zombieSprites:
+  - {fileID: 21300000, guid: f21bf0fe91485a34dba8de33105f3325, type: 3}
+  - {fileID: 21300000, guid: 2f025d7ea3e767f4a92ee20e7677ecf1, type: 3}
+  _onZombieDrowned: {fileID: 11400000, guid: 6973fc34f5b33834c9394ec934c3d69d, type: 2}
+  _onWaterInitialization: {fileID: 11400000, guid: 825dd3967929cdf4abc9241dbf0f5a59, type: 2}

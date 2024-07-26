@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -14,6 +15,10 @@ namespace LevelDesign.Runtime
 
         #region Unity API
 
+        private void Start()
+        {
+            _whichLevel.text = $"Level {_currentLevel}/1";
+        }
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -32,6 +37,17 @@ namespace LevelDesign.Runtime
         {
             string currentScene = SceneManager.GetActiveScene().name;
             SceneManager.LoadScene(currentScene);
+        }
+
+        public void LoadNextLevel()
+        {
+            int currentScene = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(currentScene + 1);
+
+            if(currentScene + 1 > SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(0);
+            }
         }
 
         public void BackToMenu()
@@ -70,6 +86,8 @@ namespace LevelDesign.Runtime
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private GameObject _levelWonPanel;
         [SerializeField] private GameManager _gameManager;
+        [SerializeField] private TMP_Text _whichLevel;
+        [SerializeField] private int _currentLevel;
         #endregion
     }
 

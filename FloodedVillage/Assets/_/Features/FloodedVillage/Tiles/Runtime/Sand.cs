@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Tiles.Runtime
 {
-    public class Sand : MonoBehaviour, CanBeModified
+    public class Sand : MonoBehaviour, ICanBeModified
     {
 
         #region Publics

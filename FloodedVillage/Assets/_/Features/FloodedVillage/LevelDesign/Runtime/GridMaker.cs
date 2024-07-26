@@ -1,10 +1,8 @@
 using Data.Runtime;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
+
 
 namespace LevelDesign.Runtime
 {
@@ -36,12 +34,6 @@ namespace LevelDesign.Runtime
             BackgroundGenerator();
             ForegroundGenerator();
         }
-
-
-
-
-
-
         #endregion
 
         #region Main methods
@@ -58,7 +50,108 @@ namespace LevelDesign.Runtime
             }
         }
 
+        [ContextMenu("Find Water")]
+        public void FindWaterInCellCoordinates()
+        {
+            for (int i = 0; i < _cellsCoordinatesList.Count; i++)
+            {
+                if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<IAmWater>(out IAmWater water))
+                {
+                    if (water.AmIWater() == false) return;
+                    Debug.Log($"I Am Water {_cellsCoordinatesList[i].m_cellLocation}");
+                    CheckIfOutOfBounds(i);
+                    //FindAdjacentCellFromGrid(i, -10);
+                }
+            }
+        }
+
+        public void FindAdjacentCellFromGrid(int i, int location)
+        {
+            int newLocation = i + location;
+
+            if (newLocation >= 0 && newLocation < _cellsCoordinatesList.Count)
+            {
+                if (_cellsCoordinatesList[newLocation].m_cellObject.TryGetComponent<ICanBeModified>(out ICanBeModified modify))
+                {
+                    if (modify.IsTheTileFull() == false)
+                    {
+                        var CellCoordinatesOfNeighbor = _cellsCoordinatesList[newLocation];
+                        SwitchTilesSandInGrid(newLocation);
+                        //Debug.Log($"You can flood {CellCoordinatesOfNeighbor} ");
+                    }
+                }
+                if (_cellsCoordinatesList[newLocation].m_cellObject.TryGetComponent<IAmAffectedByWater>(out IAmAffectedByWater affected))
+                {
+                    affected.Flood();
+                }
+            }
+        }
+
+        private void SwitchTilesSandInGrid(int i)
+        {
+            var pos = GetCellPosition(i);
+            var cell = Instantiate(_cells[2], pos, Quaternion.identity, _foregroundTransform);
+            _cellsCoordinatesList[i].m_cellObject.GetComponent<ICanBeModified>().DestroyIfWater();
+            var myStruct = _cellsCoordinatesList[i];
+            myStruct.m_cellObject = cell;
+            _cellsCoordinatesList[i] = myStruct;
+            cell.TryGetComponent<IAmWater>(out IAmWater water);
+            water.OnWaterInitialization();
+        }
+
+        private void CheckIfOutOfBounds(int i)
+        {
+            int cellLocation = _cellsCoordinatesList[i].m_cellLocation;
+            //Check if bottom of 1DGrid
+            bool bottom = cellLocation < _gridDimensions.x;
+            //Check if top of 1DGrid
+            bool top = cellLocation > _gridCellCount - _gridDimensions.x;
+            //Check if Left of 1DGrid
+            bool left = cellLocation % _gridDimensions.x == 0;
+            //Check if right of 1DGrid
+            bool right = cellLocation % _gridDimensions.x == _gridDimensions.x - 1;
+
+
+            if (bottom)
+            {
+                if (!right) FindAdjacentCellFromGrid(i, +1);
+                if (!left) FindAdjacentCellFromGrid(i, -1);
+                FindAdjacentCellFromGrid(i, +_gridDimensions.x);
+
+            }
+            if (top)
+            {
+                if (!right) FindAdjacentCellFromGrid(i, +1);
+                if (!left) FindAdjacentCellFromGrid(i, -1);
+                FindAdjacentCellFromGrid(i, -_gridDimensions.x);
+            }
+
+            if (left && !bottom && !top)
+            {
+                if (!bottom) FindAdjacentCellFromGrid(i, +_gridDimensions.x);
+                if (!top) FindAdjacentCellFromGrid(i, -_gridDimensions.x);
+
+                FindAdjacentCellFromGrid(i, +1);
+            }
+
+            if (right && !bottom && !top)
+            {
+                if (!bottom) FindAdjacentCellFromGrid(i, +_gridDimensions.x);
+                if (!top) FindAdjacentCellFromGrid(i, -_gridDimensions.x);
+                FindAdjacentCellFromGrid(i, -1);
+
+            }
+            else if (!bottom && !top && !right && !left)
+            {
+                FindAdjacentCellFromGrid(i, +_gridDimensions.x);
+                FindAdjacentCellFromGrid(i, -_gridDimensions.x);
+                FindAdjacentCellFromGrid(i, +1);
+                FindAdjacentCellFromGrid(i, -1);
+            }
+        }
+
         #endregion
+
 
         #region Utils
         private void BackgroundGenerator()
@@ -79,6 +172,15 @@ namespace LevelDesign.Runtime
                 var pos = GetCellPosition(i);
                 //Debug.Log(i);
                 var cell = Instantiate(_cells[_levelDesign[i]], pos, Quaternion.identity, _foregroundTransform);
+                if (_cells[_levelDesign[i]] == _cells[3])
+                {
+                    _onSeedHaveBeenAddedInGrid.Raise();
+                }
+                if (_cells[_levelDesign[i]] == _cells[5])
+                {
+                    Debug.Log("AmountOfZombies");
+                    _onZombieIsInGrid.Raise();
+                }
                 cell.name = $"cell {i}";
                 CellCoordinates coordinates = new CellCoordinates()
                 {
@@ -87,6 +189,7 @@ namespace LevelDesign.Runtime
                     m_cellLocation = i,
                 };
                 _cellsCoordinatesList.Add(coordinates);
+                
             }
         }
 
@@ -107,116 +210,26 @@ namespace LevelDesign.Runtime
                 Handles.Label(pos, i.ToString());
             }
         }
+    
+
         #endregion
-
-        [ContextMenu("Find Water")]
-        public void FindWaterInCellCoordinates()
-        {
-            for(int i = 0; i < _cellsCoordinatesList.Count; i++)
-            {
-                if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<IAmWater>(out IAmWater water))
-                {
-                    Debug.Log("I Am Water");
-                    CheckIfOutOfBounds(i);
-                    //FindAdjacentCellFromGrid(i, -10);
-                }
-            }
-        }
-
-        public void FindAdjacentCellFromGrid(int i, int location)
-        {
-            if (_cellsCoordinatesList[i + location].m_cellObject.TryGetComponent<CanBeModified>(out CanBeModified modify))
-            {
-                if(modify.IsTheTileFull() == false)
-                {
-                    var CellCoordinatesOfNeighbor = _cellsCoordinatesList[i + location];
-                    SwitchTilesInGrid(i + location);
-                    Debug.Log($"You can flood {CellCoordinatesOfNeighbor} ");
-                }
-            }
-
-
-
-            
-        }
-
-        private void SwitchTilesInGrid(int i)
-        {
-            var pos = GetCellPosition(i);
-            var cell = Instantiate(_cells[2], pos, Quaternion.identity, _foregroundTransform);
-            _cellsCoordinatesList[i].m_cellObject.GetComponent<CanBeModified>().DestroyIfWater();
-            
-            var myStruct = _cellsCoordinatesList[i];
-            myStruct.m_cellObject = cell;
-            _cellsCoordinatesList[i] = myStruct;
-        }
-
-        private void CheckIfOutOfBounds(int i)
-        {
-            //Check if bottom of 1DGrid
-            bool bottom = _cellsCoordinatesList[i].m_cellLocation < _gridDimensions.x;
-            //Check if top of 1DGrid
-            bool top = _cellsCoordinatesList[i].m_cellLocation > _gridCellCount - _gridDimensions.x;
-            //Check if Left of 1DGrid
-            bool left = _cellsCoordinatesList[i].m_cellLocation % _gridDimensions.x == 0;
-            //Check if right of 1DGrid
-            bool right = _cellsCoordinatesList[i].m_cellLocation % _gridDimensions.x == _gridDimensions.x - 1;
-            
-
-            if (bottom)
-            {
-                if (right) FindAdjacentCellFromGrid(i, -1);
-
-                if(left) FindAdjacentCellFromGrid(i, +1);
-
-                FindAdjacentCellFromGrid(i, +10);
-            }
-            if(top)
-            {
-                FindAdjacentCellFromGrid(i, -10);
-
-                if (right) FindAdjacentCellFromGrid(i, -1);
-
-                if (left) FindAdjacentCellFromGrid(i, +1);
-            }
-            
-            if (left)
-            {
-                FindAdjacentCellFromGrid(i, +1);
-
-            }
-           
-            if (right)
-            {
-                FindAdjacentCellFromGrid(i, -1);
-            }
-            else if(!bottom && !top && !right && !left)
-            {
-                FindAdjacentCellFromGrid(i, +10);
-                FindAdjacentCellFromGrid(i, -10);
-                FindAdjacentCellFromGrid(i, +1);
-                FindAdjacentCellFromGrid(i, -1);
-            }
-
-
-
-
-        }
 
 
         #region Privates & Protected
         [Header("--- Grid Settings ---")]
         [SerializeField] Vector2Int _gridDimensions;
-
-        
-        [SerializeField] GameObject[] _cells;
-        [SerializeField] GameObject _backgroundPrefab;
-        [SerializeField] List<CellCoordinates> _cellsCoordinatesList;
         [SerializeField] Transform _backgroundTransform;
         [SerializeField] Transform _foregroundTransform;
+        [SerializeField] GameObject[] _cells;
+        [SerializeField] GameObject _backgroundPrefab;
         private int _gridCellCount;
+        [Header("--- Instantiated List ---")]
+        [SerializeField] List<CellCoordinates> _cellsCoordinatesList;
         [SerializeField] private int[] _levelDesign;
-        
+        [Header("--- Events ---")]
+        [SerializeField] private GameEvent _onSeedHaveBeenAddedInGrid;
+        [SerializeField] private GameEvent _onZombieIsInGrid;
+
         #endregion
     }
 

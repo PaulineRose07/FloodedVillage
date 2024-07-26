@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Data.Runtime
 {
-    public interface CanBeModified
+    public interface ICanBeModified
     {
         #region Publics
         public bool IsTheTileFull();

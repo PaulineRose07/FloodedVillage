@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Data.Runtime
 {
-    public interface IAmWater
+    public interface IAmAffectedByWater
     {
-        public void OnWaterInitialization();
-
-        public bool AmIWater();
+        #region Publics
+        public void Flood();
+        #endregion
     }
 
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1779688393513252272}
   - component: {fileID: 797107547910934206}
   - component: {fileID: 9004123221305142214}
+  - component: {fileID: 6829355806464311415}
   m_Layer: 0
   m_Name: seeds
   m_TagString: Untagged
@@ -130,3 +131,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &6829355806464311415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7960654563811310804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f18c7615ccbf33440a97c6caa0b1156f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 797107547910934206}
+  _crops:
+  - {fileID: 21300000, guid: 445ce66d3b104504bad274887f0b88b6, type: 3}
+  - {fileID: 21300000, guid: 4a32990a50074304095115796aaf9e57, type: 3}
+  _onGrownCrops: {fileID: 11400000, guid: 32ec32bd2db9c744eacb65220af1427c, type: 2}

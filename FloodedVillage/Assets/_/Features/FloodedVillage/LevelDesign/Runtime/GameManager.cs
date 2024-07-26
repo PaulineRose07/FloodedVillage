@@ -24,10 +24,15 @@ namespace LevelDesign.Runtime
         // Update is called once per frame
         void Update()
         {
+            if(_currentCrops >= _maxCrops && _currentAliveZombies <= 0)
+            {
+                YouWon(); 
+            }
             if (_CurrentMoves == 0)
             {
                 GameOver();
             }
+            
         }
 
         #endregion
@@ -46,6 +51,25 @@ namespace LevelDesign.Runtime
                 movesText.text = $"Moves left: 0";
             }
         }
+
+        public void UpdateMaxCropsOnInitialize()
+        {
+            _maxCrops++;
+        }
+
+        public void ZombieCountOnItialize()
+        {
+            _currentAliveZombies++;
+        }
+
+        public void UpdateZombieCount()
+        {
+            _currentAliveZombies--;
+        }
+        public void UpdateCurrentGrownSeeds()
+        {
+            _currentCrops++;
+        }
         #endregion
 
         #region Utils
@@ -53,14 +77,24 @@ namespace LevelDesign.Runtime
         {
             _onGameOver.Raise();
         }
+
+        private void YouWon()
+        {
+            _onLevelWon.Raise();
+        }
         #endregion
 
         #region Privates & Protected
         [SerializeField] private int _MaxMoves;
         [SerializeField] private int _CurrentMoves;
+        [SerializeField] private int _maxCrops;
+        [SerializeField] private int _currentCrops;
+        [SerializeField] private int _currentAliveZombies;
         [SerializeField] GameEvent _onGameOver;
-        
-        
+        [SerializeField] private GameEvent _onLevelWon;
+        private bool _canPlay =false;
+
+
         #endregion
     }
 

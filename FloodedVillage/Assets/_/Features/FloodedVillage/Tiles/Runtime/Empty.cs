@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tiles.Runtime
 {
-    public class Empty : MonoBehaviour, CanBeModified
+    public class Empty : MonoBehaviour, ICanBeModified
     {
         #region Publics
 
@@ -33,7 +33,7 @@ namespace Tiles.Runtime
         private void OnMouseDown()
         {
             ActivateOrDeactivateSpriteRenderer();
-            _updateMoves.Raise();
+            _onMovesUpdate.Raise();
         }
         #endregion
 
@@ -85,7 +85,7 @@ namespace Tiles.Runtime
         [SerializeField] private GameObject _highlight;
         [SerializeField] private SpriteRenderer _spriteRenderer;
         private bool _isActive = true;
-        [SerializeField] GameEvent _updateMoves;
+        [SerializeField] GameEvent _onMovesUpdate;
 
         #endregion
     }
