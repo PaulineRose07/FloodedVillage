@@ -52,16 +52,6 @@ namespace LevelDesign.Runtime
             }
         }
 
-        public void UpdateMaxCropsOnInitialize()
-        {
-            _maxCrops++;
-        }
-
-        public void ZombieCountOnItialize()
-        {
-            _currentAliveZombies++;
-        }
-
         public void UpdateZombieCount()
         {
             _currentAliveZombies--;
@@ -92,7 +82,6 @@ namespace LevelDesign.Runtime
         [SerializeField] private int _currentAliveZombies;
         [SerializeField] GameEvent _onGameOver;
         [SerializeField] private GameEvent _onLevelWon;
-        private bool _canPlay =false;
 
 
         #endregion

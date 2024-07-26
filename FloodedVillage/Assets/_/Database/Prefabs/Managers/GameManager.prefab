@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 1384864479187998569}
   - component: {fileID: 25915875148272804}
   - component: {fileID: 1857498024580429212}
-  - component: {fileID: 6266114132136350735}
-  - component: {fileID: 1345483501548089126}
   - component: {fileID: 5462309737513753118}
   m_Layer: 0
   m_Name: Listener
@@ -83,62 +81,6 @@ MonoBehaviour:
       - m_Target: {fileID: 2007685633241753152}
         m_TargetAssemblyTypeName: LevelDesign.Runtime.GameManager, LevelDesign.Runtime
         m_MethodName: UpdateCurrentGrownSeeds
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &6266114132136350735
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6911307391388690201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4a34906a490de4f956295d56c4862f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_gameEvent: {fileID: 11400000, guid: 8fce47819d14f5d42a674595c6782144, type: 2}
-  m_response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2007685633241753152}
-        m_TargetAssemblyTypeName: LevelDesign.Runtime.GameManager, LevelDesign.Runtime
-        m_MethodName: UpdateMaxCropsOnInitialize
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1345483501548089126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6911307391388690201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d4a34906a490de4f956295d56c4862f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_gameEvent: {fileID: 11400000, guid: dbd1e651dbee22449b5f407f681e91ac, type: 2}
-  m_response:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2007685633241753152}
-        m_TargetAssemblyTypeName: LevelDesign.Runtime.GameManager, LevelDesign.Runtime
-        m_MethodName: ZombieCountOnItialize
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

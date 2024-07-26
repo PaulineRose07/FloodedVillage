@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Tiles.Runtime
 {
-    public class Zombie : MonoBehaviour, IAmAffectedByWater, IAmWater
+    public class Zombie : MonoBehaviour, IAmAffectedByWater
     {
        
         
@@ -36,17 +36,6 @@ namespace Tiles.Runtime
             }
         }
 
-        public void OnWaterInitialization()
-        {
-            if (!_isDrowned) return;
-        }
-
-        public bool AmIWater()
-        {
-            if (!_isDrowned) { return false; }
-            else return true;
-        }
-
         #endregion
 
         #region Utils
@@ -57,7 +46,6 @@ namespace Tiles.Runtime
         [SerializeField] private SpriteRenderer _spriteRenderer;
         [SerializeField] private Sprite[] _zombieSprites;
         [SerializeField] private GameEvent _onZombieDrowned;
-        [SerializeField] private GameEvent _onWaterInitialization;
         private bool _isDrowned;
         #endregion
     }

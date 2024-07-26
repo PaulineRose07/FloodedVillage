@@ -57,9 +57,7 @@ namespace LevelDesign.Runtime
             {
                 if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<IAmWater>(out IAmWater water))
                 {
-                    if (water.AmIWater() == false) return;
-                    Debug.Log($"I Am Water {_cellsCoordinatesList[i].m_cellLocation}");
-                    CheckIfOutOfBounds(i);
+                        CheckIfOutOfBounds(i);
                     //FindAdjacentCellFromGrid(i, -10);
                 }
             }
@@ -172,15 +170,6 @@ namespace LevelDesign.Runtime
                 var pos = GetCellPosition(i);
                 //Debug.Log(i);
                 var cell = Instantiate(_cells[_levelDesign[i]], pos, Quaternion.identity, _foregroundTransform);
-                if (_cells[_levelDesign[i]] == _cells[3])
-                {
-                    _onSeedHaveBeenAddedInGrid.Raise();
-                }
-                if (_cells[_levelDesign[i]] == _cells[5])
-                {
-                    Debug.Log("AmountOfZombies");
-                    _onZombieIsInGrid.Raise();
-                }
                 cell.name = $"cell {i}";
                 CellCoordinates coordinates = new CellCoordinates()
                 {
@@ -226,9 +215,7 @@ namespace LevelDesign.Runtime
         [Header("--- Instantiated List ---")]
         [SerializeField] List<CellCoordinates> _cellsCoordinatesList;
         [SerializeField] private int[] _levelDesign;
-        [Header("--- Events ---")]
-        [SerializeField] private GameEvent _onSeedHaveBeenAddedInGrid;
-        [SerializeField] private GameEvent _onZombieIsInGrid;
+        
 
         #endregion
     }

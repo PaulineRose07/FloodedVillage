@@ -19,10 +19,6 @@ namespace Tiles.Runtime
             _onWaterInitialization.Raise();
         }
 
-        public bool AmIWater()
-        {
-            return true;
-        }
         #endregion
 
         #region Privates & Protected
