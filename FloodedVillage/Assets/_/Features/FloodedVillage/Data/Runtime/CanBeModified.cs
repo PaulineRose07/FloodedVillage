@@ -7,7 +7,9 @@ namespace Data.Runtime
     public interface CanBeModified
     {
         #region Publics
-        public bool IsTheTileEmpty();
+        public bool IsTheTileFull();
+
+        public void DestroyIfWater();
         #endregion
     }
 

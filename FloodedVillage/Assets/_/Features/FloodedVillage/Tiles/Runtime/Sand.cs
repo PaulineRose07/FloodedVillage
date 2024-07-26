@@ -27,7 +27,7 @@ namespace Tiles.Runtime
 
         private void OnMouseExit()
         {
-            Debug.Log(_isActive);
+            //Debug.Log(_isActive);
             DeactivateHighlight();
         }
 
@@ -66,9 +66,14 @@ namespace Tiles.Runtime
  
         }
 
-        public bool IsTheTileEmpty()
+        public bool IsTheTileFull()
         {
             return _isActive;
+        }
+
+        public void DestroyIfWater()
+        {
+            Destroy(gameObject);
         }
 
         #endregion

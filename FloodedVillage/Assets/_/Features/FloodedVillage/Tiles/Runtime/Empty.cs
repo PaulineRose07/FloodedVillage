@@ -65,9 +65,14 @@ namespace Tiles.Runtime
 
         }
 
-        public bool IsTheTileEmpty()
+        public bool IsTheTileFull()
         {
             return _isActive;
+        }
+
+        public void DestroyIfWater()
+        {
+            Destroy(gameObject);
         }
 
         #endregion

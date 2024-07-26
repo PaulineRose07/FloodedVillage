@@ -2,6 +2,7 @@ using Data.Runtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace LevelDesign.Runtime
@@ -35,6 +36,15 @@ namespace LevelDesign.Runtime
         public void UpdateCurrentMoves()
         {
             _CurrentMoves--;
+        }
+
+        public void UpdateMovesText(TMP_Text movesText)
+        {
+            movesText.text = $"Moves left: {_CurrentMoves.ToString()}";
+            if( _CurrentMoves <= 0)
+            {
+                movesText.text = $"Moves left: 0";
+            }
         }
         #endregion
 

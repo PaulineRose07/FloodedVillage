@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 namespace LevelDesign.Runtime
 {
@@ -109,15 +110,97 @@ namespace LevelDesign.Runtime
         #endregion
 
         [ContextMenu("Find Water")]
-        private void FindWaterInCellCoordinates()
+        public void FindWaterInCellCoordinates()
         {
             for(int i = 0; i < _cellsCoordinatesList.Count; i++)
             {
-                if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<CanBeModified>(out CanBeModified modify))
+                if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<IAmWater>(out IAmWater water))
                 {
-                    Debug.Log("Modified");
+                    Debug.Log("I Am Water");
+                    CheckIfOutOfBounds(i);
+                    //FindAdjacentCellFromGrid(i, -10);
                 }
             }
+        }
+
+        public void FindAdjacentCellFromGrid(int i, int location)
+        {
+            if (_cellsCoordinatesList[i + location].m_cellObject.TryGetComponent<CanBeModified>(out CanBeModified modify))
+            {
+                if(modify.IsTheTileFull() == false)
+                {
+                    var CellCoordinatesOfNeighbor = _cellsCoordinatesList[i + location];
+                    SwitchTilesInGrid(i + location);
+                    Debug.Log($"You can flood {CellCoordinatesOfNeighbor} ");
+                }
+            }
+
+
+
+            
+        }
+
+        private void SwitchTilesInGrid(int i)
+        {
+            var pos = GetCellPosition(i);
+            var cell = Instantiate(_cells[2], pos, Quaternion.identity, _foregroundTransform);
+            _cellsCoordinatesList[i].m_cellObject.GetComponent<CanBeModified>().DestroyIfWater();
+            
+            var myStruct = _cellsCoordinatesList[i];
+            myStruct.m_cellObject = cell;
+            _cellsCoordinatesList[i] = myStruct;
+        }
+
+        private void CheckIfOutOfBounds(int i)
+        {
+            //Check if bottom of 1DGrid
+            bool bottom = _cellsCoordinatesList[i].m_cellLocation < _gridDimensions.x;
+            //Check if top of 1DGrid
+            bool top = _cellsCoordinatesList[i].m_cellLocation > _gridCellCount - _gridDimensions.x;
+            //Check if Left of 1DGrid
+            bool left = _cellsCoordinatesList[i].m_cellLocation % _gridDimensions.x == 0;
+            //Check if right of 1DGrid
+            bool right = _cellsCoordinatesList[i].m_cellLocation % _gridDimensions.x == _gridDimensions.x - 1;
+            
+
+            if (bottom)
+            {
+                if (right) FindAdjacentCellFromGrid(i, -1);
+
+                if(left) FindAdjacentCellFromGrid(i, +1);
+
+                FindAdjacentCellFromGrid(i, +10);
+            }
+            if(top)
+            {
+                FindAdjacentCellFromGrid(i, -10);
+
+                if (right) FindAdjacentCellFromGrid(i, -1);
+
+                if (left) FindAdjacentCellFromGrid(i, +1);
+            }
+            
+            if (left)
+            {
+                FindAdjacentCellFromGrid(i, +1);
+
+            }
+           
+            if (right)
+            {
+                FindAdjacentCellFromGrid(i, -1);
+            }
+            else if(!bottom && !top && !right && !left)
+            {
+                FindAdjacentCellFromGrid(i, +10);
+                FindAdjacentCellFromGrid(i, -10);
+                FindAdjacentCellFromGrid(i, +1);
+                FindAdjacentCellFromGrid(i, -1);
+            }
+
+
+
+
         }
 
 

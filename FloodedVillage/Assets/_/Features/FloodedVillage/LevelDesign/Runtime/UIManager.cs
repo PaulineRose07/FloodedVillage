@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,19 +14,15 @@ namespace LevelDesign.Runtime
 
         #region Unity API
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Application.Quit();
             }
+
+            _gameManager.UpdateMovesText(_movesText);
+
         }
 
         #endregion
@@ -68,8 +65,11 @@ namespace LevelDesign.Runtime
         #endregion
 
         #region Privates & Protected
+        [SerializeField] private TMP_Text _movesText;
+        [SerializeField] private TMP_Text _levelText;
         [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private GameObject _levelWonPanel;
+        [SerializeField] private GameManager _gameManager;
         #endregion
     }
 
