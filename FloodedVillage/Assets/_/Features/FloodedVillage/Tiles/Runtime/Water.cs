@@ -18,11 +18,19 @@ namespace Tiles.Runtime
         {
             _onWaterInitialization.Raise();
         }
+        public void ChangeToZombie()
+        {
+            _spriteRenderer.sprite = _sprites[1];
+        }
+
+
 
         #endregion
 
         #region Privates & Protected
         [SerializeField] private GameEvent _onWaterInitialization;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+        [SerializeField] private Sprite[] _sprites;
         #endregion
     }
 

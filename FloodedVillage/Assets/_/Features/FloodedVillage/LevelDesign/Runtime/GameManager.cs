@@ -1,7 +1,4 @@
 using Data.Runtime;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -60,13 +57,13 @@ namespace LevelDesign.Runtime
         {
             _currentCrops++;
         }
-        #endregion
-
-        #region Utils
-        private void GameOver()
+        public void GameOver()
         {
             _onGameOver.Raise();
         }
+        #endregion
+
+        #region Utils
 
         private void YouWon()
         {

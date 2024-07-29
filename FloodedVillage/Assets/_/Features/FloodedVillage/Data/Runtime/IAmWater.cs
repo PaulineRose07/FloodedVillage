@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
 
 namespace Data.Runtime
 {
     public interface IAmWater
     {
         public void OnWaterInitialization();
+
+        public void ChangeToZombie();
     }
 
 }

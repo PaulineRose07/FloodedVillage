@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8496011839130188100}
   - component: {fileID: 1100049322120779621}
   - component: {fileID: 8279916628405337933}
+  - component: {fileID: 4650064992117513994}
   m_Layer: 0
   m_Name: bridge
   m_TagString: Untagged
@@ -131,6 +132,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4650064992117513994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534747794011705133}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2a28e584b480f04c9a95ff262f91485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 1100049322120779621}
+  _sprites:
+  - {fileID: 21300000, guid: 62177b387c6e2f3408e0a84a0f88191c, type: 3}
+  - {fileID: 21300000, guid: b05d4cd25724a32439da1ea52bc229f8, type: 3}
 --- !u!1 &1702196430567361469
 GameObject:
   m_ObjectHideFlags: 0

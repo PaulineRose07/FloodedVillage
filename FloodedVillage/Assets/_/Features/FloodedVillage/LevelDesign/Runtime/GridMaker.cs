@@ -55,14 +55,20 @@ namespace LevelDesign.Runtime
         {
             for (int i = 0; i < _cellsCoordinatesList.Count; i++)
             {
+                if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<IAmBridge>(out IAmBridge bridge))
+                {
+                    bridge.UpdateSprite();
+                    CheckIfOutOfBoundsBridge(i);
+                }
                 if (_cellsCoordinatesList[i].m_cellObject.TryGetComponent<IAmWater>(out IAmWater water))
                 {
-                        CheckIfOutOfBounds(i);
+                    CheckIfOutOfBounds(i);
                     //FindAdjacentCellFromGrid(i, -10);
                 }
             }
         }
 
+ 
         public void FindAdjacentCellFromGrid(int i, int location)
         {
             int newLocation = i + location;
@@ -81,8 +87,24 @@ namespace LevelDesign.Runtime
                 if (_cellsCoordinatesList[newLocation].m_cellObject.TryGetComponent<IAmAffectedByWater>(out IAmAffectedByWater affected))
                 {
                     affected.Flood();
+                    if(_cellsCoordinatesList[newLocation].m_cellObject.TryGetComponent<IAmZombie>(out IAmZombie zombie))
+                    {
+                        SwitchTilesZombieInGrid(newLocation);
+                    }
                 }
             }
+        }
+
+        private void SwitchTilesZombieInGrid(int i)
+        {
+            var pos = GetCellPosition(i);
+            var cell = Instantiate(_cells[2], pos, Quaternion.identity, _foregroundTransform);
+            var myStruct = _cellsCoordinatesList[i];
+            myStruct.m_cellObject = cell;
+            _cellsCoordinatesList[i] = myStruct;
+            cell.TryGetComponent<IAmWater>(out IAmWater water);
+            water.ChangeToZombie();
+            water.OnWaterInitialization();
         }
 
         private void SwitchTilesSandInGrid(int i)
@@ -96,6 +118,13 @@ namespace LevelDesign.Runtime
             cell.TryGetComponent<IAmWater>(out IAmWater water);
             water.OnWaterInitialization();
         }
+
+        private void CheckIfOutOfBoundsBridge(int i)
+        {
+            FindAdjacentCellFromGrid(i, +_gridDimensions.x);
+            FindAdjacentCellFromGrid(i, -_gridDimensions.x);
+        }
+
 
         private void CheckIfOutOfBounds(int i)
         {
@@ -191,14 +220,14 @@ namespace LevelDesign.Runtime
 
         }
 
-        private void OnDrawGizmosSelected()
+        /*private void OnDrawGizmosSelected()
         {
             for (int i = 0; i < _gridDimensions.x * _gridDimensions.y; i++)
             {
                 var pos = GetCellPosition(i);
                 Handles.Label(pos, i.ToString());
             }
-        }
+        }*/
     
 
         #endregion

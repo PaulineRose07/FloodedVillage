@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -43,11 +40,6 @@ namespace LevelDesign.Runtime
         {
             int currentScene = SceneManager.GetActiveScene().buildIndex;
             SceneManager.LoadScene(currentScene + 1);
-
-            if(currentScene + 1 > SceneManager.sceneCountInBuildSettings)
-            {
-                SceneManager.LoadScene(0);
-            }
         }
 
         public void BackToMenu()

@@ -428,6 +428,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6828461438812349578, guid: 84a9504ae438ea640b39d8e3da0390b5, type: 3}
+      propertyPath: m_levelMapText
+      value: 
+      objectReference: {fileID: 4900000, guid: e19c0e2fe95576843ab7640d3259d18c, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -521,13 +525,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1281187962537462257, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 3738747650215699777, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
       propertyPath: m_Name
       value: UI Manager
       objectReference: {fileID: 0}
     - target: {fileID: 3837359925365845610, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
       propertyPath: m_text
-      value: Level 1/2
+      value: Level 1/4
       objectReference: {fileID: 0}
     - target: {fileID: 6999369790682707981, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
       propertyPath: _gameManager
@@ -536,6 +544,14 @@ PrefabInstance:
     - target: {fileID: 6999369790682707981, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
       propertyPath: _currentLevel
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7761457116278202123, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8462007464925342247, guid: d07a33a2f2f324e4e96ff8cc92a84106, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -560,11 +576,11 @@ PrefabInstance:
       objectReference: {fileID: 4615487650555887631}
     - target: {fileID: 2007685633241753152, guid: 04eded3b2ee91cf47902860c281ea95d, type: 3}
       propertyPath: _maxCrops
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2007685633241753152, guid: 04eded3b2ee91cf47902860c281ea95d, type: 3}
       propertyPath: _currentAliveZombies
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5462309737513753118, guid: 04eded3b2ee91cf47902860c281ea95d, type: 3}
       propertyPath: m_response.m_PersistentCalls.m_Calls.Array.data[0].m_Target

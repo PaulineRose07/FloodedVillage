@@ -1,11 +1,9 @@
 using Data.Runtime;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Tiles.Runtime
 {
-    public class Zombie : MonoBehaviour, IAmAffectedByWater
+    public class Zombie : MonoBehaviour, IAmAffectedByWater, IAmZombie
     {
        
         
@@ -36,6 +34,10 @@ namespace Tiles.Runtime
             }
         }
 
+        public void DestroyIfWater()
+        {
+            Destroy(gameObject);
+        }
         #endregion
 
         #region Utils

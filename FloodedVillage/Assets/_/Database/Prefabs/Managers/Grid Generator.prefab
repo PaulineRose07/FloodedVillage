@@ -122,11 +122,12 @@ MonoBehaviour:
   - {fileID: 7960654563811310804, guid: 06c6a05007a04c441add5abdfabd6fd5, type: 3}
   - {fileID: 7694063236398397498, guid: 5fcf613f9d928864fb64234eee6fc30a, type: 3}
   - {fileID: 2736920359781190308, guid: a75289e9fb36d67429fed6b66e12b6d9, type: 3}
+  - {fileID: 1534747794011705133, guid: 3e73860afee82c041859975b5464de5c, type: 3}
+  - {fileID: 8150289388426359824, guid: 6f82674a6b0070841b0ef2cab4e3382d, type: 3}
+  - {fileID: 3381115813953103801, guid: 5dcee9e4e98e6bc4ab5dbbd0e2d51562, type: 3}
   _backgroundPrefab: {fileID: 3119048949214642774, guid: 73bfc3e33df7b124c8e0a7addc3cdfc4, type: 3}
   _cellsCoordinatesList: []
   _levelDesign: 
-  _onSeedHaveBeenAddedInGrid: {fileID: 11400000, guid: 8fce47819d14f5d42a674595c6782144, type: 2}
-  _onZombieIsInGrid: {fileID: 11400000, guid: dbd1e651dbee22449b5f407f681e91ac, type: 2}
 --- !u!114 &8951491269959092862
 MonoBehaviour:
   m_ObjectHideFlags: 0
